@@ -1,16 +1,9 @@
-version: 0.1
+version: 0.2
 
 phases:
   install:
-    commands:
-      - echo installing nodejs...
-      - curl -sL https://deb.nodesource.com/setup_12.x | bash -
-      - apt-get install -y nodejs
-      - echo installing yarn...
-      - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-      - echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-      - apt install --no-install-recommends yarn
-  pre_build:
+    runtime-versions:
+      nodejs: 18
     commands:
       - echo installing dependencies...
       - npm install
@@ -18,8 +11,8 @@ phases:
     commands:
       - echo building...
       - npm run build
+
 artifacts:
   files:
     - "**/*"
-  discard-paths: no
   base-directory: dist
